@@ -60,16 +60,11 @@ Once initialized, `MeetManager` automatically observes `UITextField` and `UIText
 
 For example:
 
-    import UIKit
-    import MeetKeyboardManager
-
-    final class ViewController: UIViewController {
-
-        override func viewDidLoad() {
-            super.viewDidLoad()
-
-            MeetManager.shared
-        }
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        // Override point for customization after application launch.
+        
+        KeyboardToolbarManager.shared.isEnabled = true
+        return true
     }
 
 You don't need to manually configure individual text fields or text views.

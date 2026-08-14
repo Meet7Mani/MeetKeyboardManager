@@ -1,126 +1,137 @@
 # MeetKeyboardManager
 
-A lightweight iOS keyboard manager that adds a Done button to text fields and text views and automatically adjusts the view when the keyboard appears.
-
-# MeetKeyboardManager
-
-A lightweight keyboard manager for iOS that automatically adds a **Done** button to `UITextField` and `UITextView` and moves the view when the keyboard overlaps the active input field.
-
-## Features
-
-- Automatically adds a Done button to `UITextField`
-- Automatically adds a Done button to `UITextView`
-- Dismisses the keyboard when Done is tapped
-- Automatically moves the view when the keyboard overlaps the active input field
-- Restores the view when the keyboard is dismissed
-- Uses keyboard animation settings for smooth transitions
-- Supports UIKit
-- No third-party dependencies
+A lightweight keyboard manager for iOS that automatically adds a **Done** button to `UITextField` and `UITextView` keyboard toolbars and adjusts the view when the keyboard appears.
 
 ## Requirements
 
-- iOS 15.0+
-- Swift 5.0+
-- Xcode 15.0+
-- UIKit
+* iOS 15.0+
+* Swift 5.0+
 
 ## Installation
 
+### Swift Package Manager
+
+Add MeetKeyboardManager to your project using Xcode:
+
+1. Open your project in Xcode.
+2. Select **File → Add Package Dependencies...**
+3. Enter:
+
+```text
+https://github.com/Meet7Mani/MeetKeyboardManager.git
+```
+
+4. Select the desired version and add the `MeetKeyboardManager` package.
+
+Or add it to your `Package.swift`:
+
+```swift
+dependencies: [
+    .package(
+        url: "https://github.com/Meet7Mani/MeetKeyboardManager.git",
+        from: "1.0.2"
+    )
+]
+```
+
+Then add the product to your target:
+
+```swift
+.product(
+    name: "MeetKeyboardManager",
+    package: "MeetKeyboardManager"
+)
+```
+
 ### CocoaPods
 
-Add `MeetKeyboardManager` to your `Podfile`:
+Add the following to your `Podfile`:
 
-    platform :ios, '15.0'
+```ruby
+platform :ios, '15.0'
 
-    target 'YourApp' do
-      use_frameworks!
+target 'YourApp' do
+    use_frameworks!
 
-      pod 'MeetKeyboardManager'
-    end
+    pod 'MeetKeyboardManager', '~> 1.0.2'
+end
+```
 
 Then run:
 
-    pod install
-
-Open the generated `.xcworkspace` file and build your project.
+```bash
+pod install
+```
 
 ## Usage
 
 Import the framework:
 
-    import MeetKeyboardManager
+```swift
+import MeetKeyboardManager
+```
 
-Initialize the manager:
+Start the keyboard manager:
 
-    MeetManager.shared
+```swift
+MeetManager.shared.start()
+```
 
-That's it.
+Stop the keyboard manager when it is no longer needed:
 
-Once initialized, `MeetManager` automatically observes `UITextField` and `UITextView` editing events.
-
-For example:
-
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        
-        MeetManager.shared.isEnabled = true
-        return true
-    }
-
-You don't need to manually configure individual text fields or text views.
+```swift
+MeetManager.shared.stop()
+```
 
 ## What It Does
 
-### Done Button
+MeetKeyboardManager provides:
 
-When a `UITextField` or `UITextView` begins editing, MeetKeyboardManager automatically adds a toolbar above the keyboard with a Done button.
-
-Tapping Done dismisses the keyboard.
-
-### Keyboard Handling
-
-When the keyboard appears and overlaps the active input field, MeetKeyboardManager automatically moves the view upward.
-
-When the keyboard disappears, the view returns to its original position.
+* Automatically adds a **Done (✓)** button to `UITextField` keyboards.
+* Automatically adds a **Done (✓)** button to `UITextView` keyboards.
+* Dismisses the keyboard when the Done button is tapped.
+* Automatically shifts the view when the active text field or text view is covered by the keyboard.
+* Supports both Swift Package Manager and CocoaPods.
+* Supports iOS 15.0 and later.
 
 ## Example
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        
-        MeetManager.shared.isEnabled = true
+```swift
+import UIKit
+import MeetKeyboardManager
+
+@main
+class AppDelegate: UIResponder, UIApplicationDelegate {
+
+    func application(
+        _ application: UIApplication,
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
+    ) -> Bool {
+
+        MeetManager.shared.start()
+
         return true
     }
+}
+```
+That's it. You do not need to call start() in every UIViewController.
+The manager observes UITextField, UITextView, and keyboard notifications globally, so it handles text fields/text views throughout the application.
 
-No additional setup is required for the text fields.
+Stopping the manager
 
-## How It Works
+Normally, you don't need to call stop() during normal app usage. If your application needs to disable the keyboard manager for some reason, you can call:
 
-MeetKeyboardManager listens for:
-
-- `UITextField` editing events
-- `UITextView` editing events
-- Keyboard show notifications
-- Keyboard hide notifications
-
-When an input view becomes active, the manager:
-
-1. Adds a Done button to the keyboard toolbar.
-2. Detects whether the keyboard overlaps the active input view.
-3. Moves the view if necessary.
-4. Restores the view when the keyboard is dismissed.
+```swift
+MeetManager.shared.stop()
+```
 
 ## License
 
-MeetKeyboardManager is released under the MIT License.
-
-See [LICENSE](LICENSE) for details.
+MeetKeyboardManager is available under the MIT license. See the `LICENSE` file for more information.
 
 ## Author
 
-**Manpreet Singh**
-**s777manpreet@gmail.com**
+with 💙 by Manpreet Singh.
+s777manpreet@gmail.com
 
-## Repository
-
-https://github.com/Meet7Mani/MeetKeyboardManager
+GitHub: https://github.com/Meet7Mani

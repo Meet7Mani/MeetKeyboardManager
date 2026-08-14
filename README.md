@@ -63,7 +63,7 @@ For example:
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        KeyboardToolbarManager.shared.isEnabled = true
+        MeetManager.shared.isEnabled = true
         return true
     }
 
@@ -85,19 +85,11 @@ When the keyboard disappears, the view returns to its original position.
 
 ## Example
 
-    import UIKit
-    import MeetKeyboardManager
-
-    final class LoginViewController: UIViewController {
-
-        @IBOutlet weak var emailTextField: UITextField!
-        @IBOutlet weak var passwordTextField: UITextField!
-
-        override func viewDidLoad() {
-            super.viewDidLoad()
-
-            MeetManager.shared
-        }
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        // Override point for customization after application launch.
+        
+        MeetManager.shared.isEnabled = true
+        return true
     }
 
 No additional setup is required for the text fields.

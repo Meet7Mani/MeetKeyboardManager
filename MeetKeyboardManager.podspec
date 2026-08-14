@@ -10,7 +10,7 @@ Pod::Spec.new do |spec|
     adjusts the view when the keyboard appears.
   DESC
 
-  spec.homepage     = "https://github.com/Meet7Mani/keyboardManager"
+  spec.homepage     = "https://github.com/Meet7Mani/MeetKeyboardManager"
 
   spec.license      = {
     :type => "MIT",
@@ -25,7 +25,7 @@ Pod::Spec.new do |spec|
   spec.swift_versions = "5.0"
 
   spec.source       = {
-    :git => "https://github.com/Meet7Mani/keyboardManager.git",
+    :git => "https://github.com/Meet7Mani/MeetKeyboardManager.git",
     :tag => spec.version.to_s
   }
 

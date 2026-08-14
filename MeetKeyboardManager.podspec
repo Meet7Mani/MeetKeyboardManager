@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
 
   spec.name         = "MeetKeyboardManager"
-  spec.version      = "1.0.0"
+  spec.version      = "1.0.2"
   spec.summary      = "A lightweight keyboard manager for iOS."
 
   spec.description  = <<-DESC

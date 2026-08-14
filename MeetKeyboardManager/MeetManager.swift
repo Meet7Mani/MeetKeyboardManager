@@ -12,41 +12,57 @@ public final class MeetManager {
     
     public static let shared                = MeetManager()
 
-    var isEnabled                           = false
     private weak var activeField            : UIView?
     private var originalViewY               : CGFloat = 0
     
-    private init() {
+    private var isEnabled = false
+    
+    private init() {}
+    
+    public func start() {
+        guard !isEnabled else { return }
         
-        if isEnabled {
-            
-            NotificationCenter.default.addObserver(self,
-                                                   selector: #selector(textFieldDidBeginEditing(_:)),
-                                                   name: UITextField.textDidBeginEditingNotification,
-                                                   object: nil)
-            
-            NotificationCenter.default.addObserver(self,
-                                                   selector: #selector(textViewDidBeginEditing(_:)),
-                                                   name: UITextView.textDidBeginEditingNotification,
-                                                   object: nil)
-            
-            NotificationCenter.default.addObserver(self,
-                                                   selector: #selector(keyboardWillShow(_:)),
-                                                   name: UIResponder.keyboardWillShowNotification,
-                                                   object: nil)
-            
-            NotificationCenter.default.addObserver(self,
-                                                   selector: #selector(keyboardWillHide(_:)),
-                                                   name: UIResponder.keyboardWillHideNotification,
-                                                   object: nil)
-        }
+        isEnabled = true
+        startObserving()
+    }
+    
+    public func stop() {
+        guard isEnabled else { return }
+        
+        isEnabled = false
+        stopObserving()
+    }
+    
+    private func startObserving() {
+        
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(textFieldDidBeginEditing(_:)),
+                                               name: UITextField.textDidBeginEditingNotification,
+                                               object: nil)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(textViewDidBeginEditing(_:)),
+                                               name: UITextView.textDidBeginEditingNotification,
+                                               object: nil)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillShow(_:)),
+                                               name: UIResponder.keyboardWillShowNotification,
+                                               object: nil)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillHide(_:)),
+                                               name: UIResponder.keyboardWillHideNotification,
+                                               object: nil)
+    }
+
+    private func stopObserving() {
+        NotificationCenter.default.removeObserver(self)
     }
     
     deinit {
-        if isEnabled {
-            
-            NotificationCenter.default.removeObserver(self)
-        }
+        stopObserving()
     }
     
     @objc private func textFieldDidBeginEditing(_ notification: Notification) {
@@ -160,4 +176,3 @@ public final class MeetManager {
         }
     }
 }
-

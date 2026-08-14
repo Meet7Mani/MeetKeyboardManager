@@ -11,35 +11,42 @@ import UIKit
 public final class MeetManager {
     
     public static let shared                = MeetManager()
-    
+
+    var isEnabled                           = false
     private weak var activeField            : UIView?
     private var originalViewY               : CGFloat = 0
     
     private init() {
         
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(textFieldDidBeginEditing(_:)),
-                                               name: UITextField.textDidBeginEditingNotification,
-                                               object: nil)
-        
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(textViewDidBeginEditing(_:)),
-                                               name: UITextView.textDidBeginEditingNotification,
-                                               object: nil)
-        
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(keyboardWillShow(_:)),
-                                               name: UIResponder.keyboardWillShowNotification,
-                                               object: nil)
-        
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(keyboardWillHide(_:)),
-                                               name: UIResponder.keyboardWillHideNotification,
-                                               object: nil)
+        if isEnabled {
+            
+            NotificationCenter.default.addObserver(self,
+                                                   selector: #selector(textFieldDidBeginEditing(_:)),
+                                                   name: UITextField.textDidBeginEditingNotification,
+                                                   object: nil)
+            
+            NotificationCenter.default.addObserver(self,
+                                                   selector: #selector(textViewDidBeginEditing(_:)),
+                                                   name: UITextView.textDidBeginEditingNotification,
+                                                   object: nil)
+            
+            NotificationCenter.default.addObserver(self,
+                                                   selector: #selector(keyboardWillShow(_:)),
+                                                   name: UIResponder.keyboardWillShowNotification,
+                                                   object: nil)
+            
+            NotificationCenter.default.addObserver(self,
+                                                   selector: #selector(keyboardWillHide(_:)),
+                                                   name: UIResponder.keyboardWillHideNotification,
+                                                   object: nil)
+        }
     }
     
     deinit {
-        NotificationCenter.default.removeObserver(self)
+        if isEnabled {
+            
+            NotificationCenter.default.removeObserver(self)
+        }
     }
     
     @objc private func textFieldDidBeginEditing(_ notification: Notification) {
